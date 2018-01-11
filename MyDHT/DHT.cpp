@@ -12,15 +12,15 @@ DHT::DHT(const uint8_t pin, const uint8_t typeDHT) : pinIO_(pin), typeDHT_(typeD
 uint8_t DHT::getDataDHT()
 {
 	uint8_t
-		data[5] = { 0 },  // массив для данных 5 байт
+		data[5]  = { 0 }, // массив для данных 5 байт
 		indxData = 0,     // индекс для перехода к записи следующего байта
-		cntBit = 7;	      // счетчик бит по 8 для создания байта данных
+		cntBit   = 7;	  // счетчик бит по 8 для создания байта данных
 
 	unsigned long int
-		timeOut;	      // таймаут
+		timeOut;	  // таймаут
 
 	// значения в случае ошибки    
-	humidity = 255;
+	humidity    = 255;
 	temperature = 255;
 
 	// 1) - - -
@@ -52,7 +52,7 @@ uint8_t DHT::getDataDHT()
 	{
 		if ( (micros() - timeOut) > 100)
 		{
-			return 2;
+			return 2; // превышен таймаут
 		}
 	}
 	
@@ -61,7 +61,7 @@ uint8_t DHT::getDataDHT()
 	{
 		if (micros() - timeOut > 100)
 		{
-			return 3;
+			return 3; // превышен таймаут
 		}
 	}
 	
@@ -77,7 +77,7 @@ uint8_t DHT::getDataDHT()
 		{
 			if ((micros() - timeOut) > 60)
 			{
-				return 4;
+				return 4; // превышен таймаут
 			}
 		}
 
@@ -90,7 +90,7 @@ uint8_t DHT::getDataDHT()
 		{
 			if ((micros() - timeOut) > 100)
 			{
-				return 5;
+				return 5; // превышен таймаут
 			}
 		}
 		// ... если время удержания больше 40, то пишем в байт 1
@@ -112,7 +112,7 @@ uint8_t DHT::getDataDHT()
 	// проверка контрольной суммы
 	if ((data[0] + data[1] + data[2] + data[3]) != data[4])
 	{
-		return 6;
+		return 6; // неверная контрольная сумма
 	}
 	// 5) - - -
 	/*
@@ -142,7 +142,7 @@ uint8_t DHT::getDataDHT()
 			break;
 		}
 	}
-	return 1;
+	return 1; // нет ошибок
 	// - - -
 }
 
@@ -150,7 +150,7 @@ uint8_t DHT::getDataDHT()
 float DHT::dewPoint()
 {
 	if (temperature == 255 && humidity == 255)
-		return 255;
+		return 255; // ошибка, если полученны неверные данные, то точку россы не считаем
 	float
 		a = 17.27,
 		b = 237.7,
