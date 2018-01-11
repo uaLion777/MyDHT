@@ -52,7 +52,7 @@ uint8_t DHT::getDataDHT()
 	{
 		if ( (micros() - timeOut) > 100)
 		{
-			return 1;
+			return 2;
 		}
 	}
 	
@@ -61,7 +61,7 @@ uint8_t DHT::getDataDHT()
 	{
 		if (micros() - timeOut > 100)
 		{
-			return 2;
+			return 3;
 		}
 	}
 	
@@ -77,7 +77,7 @@ uint8_t DHT::getDataDHT()
 		{
 			if ((micros() - timeOut) > 60)
 			{
-				return 3;
+				return 4;
 			}
 		}
 
@@ -90,7 +90,7 @@ uint8_t DHT::getDataDHT()
 		{
 			if ((micros() - timeOut) > 100)
 			{
-				return 4;
+				return 5;
 			}
 		}
 		// ... если время удержания больше 40, то пишем в байт 1
@@ -112,7 +112,7 @@ uint8_t DHT::getDataDHT()
 	// проверка контрольной суммы
 	if ((data[0] + data[1] + data[2] + data[3]) != data[4])
 	{
-		return 5;
+		return 6;
 	}
 	// 5) - - -
 	/*
@@ -142,7 +142,7 @@ uint8_t DHT::getDataDHT()
 			break;
 		}
 	}
-	return 0;
+	return 1;
 	// - - -
 }
 
