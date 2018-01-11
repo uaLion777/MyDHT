@@ -158,5 +158,5 @@ float DHT::dewPoint()
 		RH = humidity / 100;
 
 	return (b * ((a * T) / (b + T) + log(RH))) /
-		   (a - ((a * T) / (b + T) + log(RH)));
+	       (a - ((a * T) / (b + T) + log(RH)));
 }
