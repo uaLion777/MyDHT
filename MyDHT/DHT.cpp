@@ -20,8 +20,8 @@ uint8_t DHT::getDataDHT()
 		timeOut;	      // таймаут
 
 	// значения в случае ошибки    
-	this->humidity = 255;
-	this->temperature = 255;
+	humidity = 255;
+	temperature = 255;
 
 	// 1) - - -
 	// Запрашиваем соединение с датчиком, прижимаем линию к 0, согласно даташиту, DHT11 на 18мс, DHT22 - 1мс, и отпускаем к 1 - 20мкс
@@ -126,19 +126,19 @@ uint8_t DHT::getDataDHT()
 	{
 		case DHT11: 
 		{
-			this->humidity = data[0];
-			this->temperature = data[2];
+			humidity = data[0];
+			temperature = data[2];
 			break;
 		}
 		case DHT22:
 		{
-			this->humidity = (float)((data[0] << 8) | data[1]) / 10 ;
+			humidity = (float)((data[0] << 8) | data[1]) / 10 ;
 			
 			if (data[2] >> 7 == 0x01) 
 			{ 	
-				this->temperature = (float)((data[2] ^ 1 << 7) | data[3]) / -10;
+				temperature = ((data[2] ^ 1 << 7) | data[3]) / -10;
 			}
-			else this->temperature = (float)((data[2] << 8) | data[3]) / 10;
+			else temperature = ((data[2] << 8) | data[3]) / 10;
 			break;
 		}
 	}
@@ -154,8 +154,8 @@ float DHT::dewPoint()
 	float
 		a = 17.27,
 		b = 237.7,
-		T = (float)temperature,
-		RH = (float)humidity / 100;
+		T = temperature,
+		RH = humidity / 100;
 
 	return (b * ((a * T) / (b + T) + log(RH))) /
 		   (a - ((a * T) / (b + T) + log(RH)));
