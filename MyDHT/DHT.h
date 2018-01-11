@@ -30,10 +30,11 @@ public:
 	float
 		humidity,
 		temperature;
+	
 	DHT(const uint8_t);
 	DHT(const uint8_t, const uint8_t);
-	uint8_t getDataDHT();
-	float dewPoint();
+	uint8_t getDataDHT(void);
+	float dewPoint(void);
 };
 
 #endif /* DHT_H */
