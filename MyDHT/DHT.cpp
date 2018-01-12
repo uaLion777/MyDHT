@@ -71,16 +71,16 @@ uint8_t DHT::getDataDHT()
 	// Принимаем данные 40 бит и пишем в 5 байт
 	for (int i = 0; i < 40; i++)
 	{
-		// 0 - 50мкс
+		// 0 - 50мкс прижимаем к 0
 		timeOut = micros();
 		while (digitalRead(pinIO_) == LOW)
 		{
-			if ((micros() - timeOut) > 60)
+			if ((micros() - timeOut) > 64)
 			{
 				return 4; // превышен таймаут
 			}
 		}
-
+		//return Serial.println(micros() - timeOut);
 		// сам прием, если длительность импульса 1-цы больше 40мкс, то пишем как 1, иначе 0
 		// 0 - 28мкс, 1 - 70мкс
 		// засекаем время удержания 1
@@ -93,6 +93,7 @@ uint8_t DHT::getDataDHT()
 				return 5; // превышен таймаут
 			}
 		}
+		
 		// ... если время удержания больше 40, то пишем в байт 1
 		if ((micros() - timeOut) > 40)
 		{
