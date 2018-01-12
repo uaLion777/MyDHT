@@ -16,7 +16,7 @@ uint8_t DHT::getDataDHT()
 		indxData = 0,     // индекс для перехода к записи следующего байта
 		cntBit   = 7;	  // счетчик бит по 8 для создания байта данных
 
-	unsigned long int
+	unsigned long
 		timeOut;	  // таймаут
 
 	// значения в случае ошибки    
